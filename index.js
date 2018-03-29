@@ -343,13 +343,21 @@ function Jasmine2HTMLReporter(options) {
             html += '<ul>';
             _.each(spec.failedExpectations, function(expectation){
                 html += '<li>';
-                html += expectation.message + '<span style="padding:0 1em;color:red;">&#10007;</span>';
+                if ((expectation.message).toString().indexOf('Failed : ') !== -1) {
+                    html += (expectation.message).toString().replace('Failed : ', '<span style="color:red;"><b>' + 'Failed : '+ '</b></span>')+ '<span style="padding:0 1em;color:red;">&#10007;</span>';
+                } else {
+                    html += expectation.message + '<span style="padding:0 1em;color:red;">&#10007;</span>';
+                }
                 html += '</li>';
             });
             if(self.showPassed === true){
                 _.each(spec.passedExpectations, function(expectation){
                     html += '<li>';
-                    html += expectation.message + '<span style="padding:0 1em;color:green;">&#10003;</span>';
+                    if ((expectation.message).toString().indexOf('Passed : ') !== -1) {
+                        html += (expectation.message).toString().replace('Passed : ', '<span style="color:green;"><b>' + 'Passed : '+ '</b></span>')+ '<span style="padding:0 1em;color:green;">&#10003;</span>';
+                    } else {
+                        html += expectation.message + '<span style="padding:0 1em;color:green;">&#10003;</span>';
+                    }
                     html += '</li>';
                 });
             }
