@@ -375,8 +375,9 @@ function Jasmine2HTMLReporter(options) {
         var path = self.savePath;
         function appendwrite(path, filename, text){
             var fs = require("fs");
-            filename = getQualifiedFilename(path, filename, window.fs_path_separator);
-            fs.appendFileSync(filename,text);
+            require("mkdirp").sync(path); // make sure the path exists
+            var filepath = path.join(path, filename);
+            fs.appendFileSync(filepath,text);
             return;
         }
 
