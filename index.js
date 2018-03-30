@@ -373,7 +373,7 @@ function Jasmine2HTMLReporter(options) {
     self.writeFile = function(filename, text) {
         var errors = [];
         var path = self.savePath;
-        function appendwrite(path, filename, text){
+        function appendwrite(path, filename, text){ //append
             var fs = require("fs");
             require("mkdirp").sync(path); // make sure the path exists
             var filepath = path.join(path, filename);
