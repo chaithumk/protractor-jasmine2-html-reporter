@@ -152,9 +152,9 @@ function Jasmine2HTMLReporter(options) {
         exportObject.startTime = new Date();
         self.started = true;
 
-        //Delete previous reports unless cleanDirectory is false
-        if (self.cleanDestination)
-            rmdir(self.savePath);
+        // //Delete previous reports unless cleanDirectory is false
+        // if (self.cleanDestination)
+        //     rmdir(self.savePath);
 
     };
     self.suiteStarted = function(suite) {
@@ -373,6 +373,12 @@ function Jasmine2HTMLReporter(options) {
     self.writeFile = function(filename, text) {
         var errors = [];
         var path = self.savePath;
+        function appendwrite(path, filename, text){
+            var fs = require("fs");
+            filename = getQualifiedFilename(path, filename, window.fs_path_separator);
+            fs.appendFileSync(filename,text);
+            return;
+        }
 
         function phantomWrite(path, filename, text) {
             // turn filename into a qualified path
@@ -394,7 +400,8 @@ function Jasmine2HTMLReporter(options) {
         // Attempt writing with each possible environment.
         // Track errors in case no write succeeds
         try {
-            phantomWrite(path, filename, text);
+            appendwrite(path, filename, text);
+            // phantomWrite(path, filename, text);
             return;
         } catch (e) { errors.push('  PhantomJs attempt: ' + e.message); }
         try {
