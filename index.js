@@ -345,6 +345,8 @@ function Jasmine2HTMLReporter(options) {
                 html += '<li>';
                 if ((expectation.message).toString().indexOf('Failed : ') !== -1) {
                     html += (expectation.message).toString().replace('Failed : ', '<span style="color:red;"><b>' + 'Failed : '+ '</b></span>')+ '<span style="padding:0 1em;color:red;">&#10007;</span>';
+                } else if ((expectation.message).toString().indexOf('Error : ') !== -1) {
+                    html += (expectation.message).toString().replace('Error : ', '<span style="color:red;"><b>' + 'Error : '+ '</b></span>')+ '<span style="padding:0 1em;color:red;">&#10007;</span>';
                 } else {
                     html += expectation.message + '<span style="padding:0 1em;color:red;">&#10007;</span>';
                 }
